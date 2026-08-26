@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { consumeSkipOpeningTransitionForNavigation } from "@/lib/navigation-transition";
 
 gsap.registerPlugin(useGSAP);
 
@@ -12,12 +13,21 @@ export function OpeningTransition() {
   const pathname = usePathname();
 
   useGSAP(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    if (consumeSkipOpeningTransitionForNavigation()) {
+      gsap.set(root, { display: "none" });
+      return;
+    }
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const firstVisit = !sessionStorage.getItem("ascooo-visited");
     if (reduceMotion) {
-      gsap.set(".p-op", { display: "none" });
+      gsap.set(root, { display: "none" });
       return;
     }
+    gsap.set(root, { display: "block" });
     const timeline = gsap.timeline({ onComplete: () => sessionStorage.setItem("ascooo-visited", "1") });
     if (firstVisit) {
       timeline.fromTo(".p-op__logo", { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "power3.out" })

@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { localizeHref } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/get-dictionary";
 import type { Locale } from "@/types/content";
+import { StaggeredMenu, type StaggeredMenuItem } from "./StaggeredMenu";
 
 interface HeaderProps {
   locale: Locale;
@@ -15,7 +16,6 @@ interface HeaderProps {
 export function Header({ locale, navigation }: HeaderProps) {
   const pathname = usePathname();
   const languageRef = useRef<HTMLDivElement>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -25,11 +25,6 @@ export function Header({ locale, navigation }: HeaderProps) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useLayoutEffect(() => {
-    document.body.toggleAttribute("data-menu-open", isMenuOpen);
-    return () => document.body.removeAttribute("data-menu-open");
-  }, [isMenuOpen]);
 
   useEffect(() => {
     const handlePointerDown = (event: PointerEvent) => {
@@ -48,6 +43,11 @@ export function Header({ locale, navigation }: HeaderProps) {
     ["company", "/company"], ["status", "/status"], ["news", "/news"],
   ] as const;
   const menuLinks = [...links, ["contact", "/contact"] as const];
+  const mobileMenuItems: StaggeredMenuItem[] = menuLinks.map(([key, href]) => ({
+    label: navigation[key],
+    ariaLabel: navigation[key],
+    href: localizeHref(href, locale),
+  }));
 
   return (
     <>
@@ -77,28 +77,11 @@ export function Header({ locale, navigation }: HeaderProps) {
         </div>
       </header>
 
-      <nav className={`l-nav${isMenuOpen ? " is-open" : ""}`} aria-label="Menu" data-lenis-prevent>
-        <div className="l-nav__bg" />
-        <div className="l-nav__container">
-          <div className="l-nav__brand"><Link href={localizeHref("/", locale)} className="l-nav__brand-link" onClick={() => setIsMenuOpen(false)}><img src="/assets/img/logo_light.svg" alt="Ascooo" /></Link></div>
-          <div className="l-nav__content">
-            <ul className="l-nav__list">
-              {menuLinks.map(([key, href]) => (
-                <li className="l-nav__list-item" key={key}>
-                  <Link className="l-nav__link" href={localizeHref(href, locale)} onClick={() => setIsMenuOpen(false)}><span className="l-nav__link-text">{navigation[key]}</span></Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <button className="l-menu" type="button" aria-label={isMenuOpen ? "Close menu" : "Open menu"} aria-expanded={isMenuOpen} onClick={() => setIsMenuOpen((open) => !open)}>
-        <span className="l-menu__content">
-          <span className="l-menu__line --open"><span className="l-menu__line-bar">MENU</span><span className="l-menu__line-bar" /></span>
-          <span className="l-menu__line --close"><span className="l-menu__line-bar" /><span className="l-menu__line-bar" /></span>
-        </span>
-      </button>
+      <StaggeredMenu
+        locale={locale}
+        homeHref={localizeHref("/", locale)}
+        items={mobileMenuItems}
+      />
     </>
   );
 }
