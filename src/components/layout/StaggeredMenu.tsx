@@ -2,13 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { markSkipOpeningTransitionForNextNavigation } from "@/lib/navigation-transition";
 import type { Locale } from "@/types/content";
-
-gsap.registerPlugin(useGSAP);
 
 export interface StaggeredMenuItem {
   label: string;
@@ -27,9 +23,7 @@ const LAYER_COLORS = ["var(--color-accent)", "var(--color-accent-alt)"];
 export function StaggeredMenu({ locale, homeHref, items }: StaggeredMenuProps) {
   const pathname = usePathname();
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
   const openRef = useRef(false);
   const previousPathRef = useRef(pathname);
   const [isOpen, setIsOpen] = useState(false);
@@ -37,78 +31,18 @@ export function StaggeredMenu({ locale, homeHref, items }: StaggeredMenuProps) {
   const menuText = locale === "zh-TW" ? "選單" : "Menu";
   const closeText = locale === "zh-TW" ? "關閉" : "Close";
 
-  useGSAP(
-    () => {
-      const wrapper = wrapperRef.current;
-      const panel = panelRef.current;
-      if (!wrapper || !panel) return;
-
-      const layers = Array.from(wrapper.querySelectorAll<HTMLElement>(".sm-menu__layer"));
-      const labels = Array.from(wrapper.querySelectorAll<HTMLElement>(".sm-menu__item-label"));
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const duration = (value: number) => (reduced ? 0.001 : value);
-
-      gsap.set([...layers, panel], { xPercent: 100, autoAlpha: 1 });
-      gsap.set(labels, { yPercent: 135, rotation: reduced ? 0 : 7 });
-
-      const timeline = gsap.timeline({ paused: true });
-
-      layers.forEach((layer, index) => {
-        timeline.to(
-          layer,
-          { xPercent: 0, duration: duration(0.5), ease: "power4.out" },
-          reduced ? 0 : index * 0.07,
-        );
-      });
-
-      timeline.to(
-        panel,
-        { xPercent: 0, duration: duration(0.68), ease: "power4.out" },
-        reduced ? 0 : 0.12,
-      );
-
-      timeline.to(
-        labels,
-        {
-          yPercent: 0,
-          rotation: 0,
-          duration: duration(0.86),
-          ease: "power4.out",
-          stagger: reduced ? 0 : 0.075,
-        },
-        reduced ? 0 : 0.25,
-      );
-
-      timelineRef.current = timeline;
-      if (openRef.current) timeline.progress(1);
-
-      return () => {
-        timeline.kill();
-        if (timelineRef.current === timeline) timelineRef.current = null;
-      };
-    },
-    { scope: wrapperRef },
-  );
-
   const setMenuOpen = useCallback((open: boolean) => {
     openRef.current = open;
     setIsOpen(open);
-
-    const timeline = timelineRef.current;
-    if (!timeline) {
-      window.requestAnimationFrame(() => {
-        const pendingTimeline = timelineRef.current;
-        if (!pendingTimeline) return;
-        if (openRef.current) pendingTimeline.play();
-        else pendingTimeline.reverse();
-      });
-      return;
-    }
-    if (open) timeline.play();
-    else timeline.reverse();
   }, []);
 
-  const toggleMenu = useCallback(() => setMenuOpen(!openRef.current), [setMenuOpen]);
+  const toggleMenu = useCallback(() => {
+    setIsOpen((current) => {
+      const next = !current;
+      openRef.current = next;
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
     document.body.toggleAttribute("data-menu-open", isOpen);
@@ -173,7 +107,10 @@ export function StaggeredMenu({ locale, homeHref, items }: StaggeredMenuProps) {
           href={homeHref}
           aria-label="Ascooo Home"
           onClick={() => {
-            if (normalizedPath !== "/") markSkipOpeningTransitionForNextNavigation();
+            if (normalizedPath !== "/") {
+              markSkipOpeningTransitionForNextNavigation();
+              return;
+            }
             setMenuOpen(false);
           }}
         >
@@ -210,16 +147,19 @@ export function StaggeredMenu({ locale, homeHref, items }: StaggeredMenuProps) {
         aria-label={locale === "zh-TW" ? "行動版主選單" : "Mobile navigation"}
         aria-hidden={!isOpen}
         data-lenis-prevent
-        ref={panelRef}
       >
         <div className="sm-menu__panel-inner">
           <ol className="sm-menu__list">
-            {items.map((item) => {
+            {items.map((item, index) => {
               const itemPath = item.href.replace(/^\/en(?=\/|$)/, "").split("#")[0] || "/";
               const isCurrent = itemPath === normalizedPath;
 
               return (
-                <li className="sm-menu__item" key={item.href}>
+                <li
+                  className="sm-menu__item"
+                  key={item.href}
+                  style={{ "--sm-item-delay": `${0.25 + index * 0.075}s` } as CSSProperties}
+                >
                   <Link
                     className="sm-menu__link"
                     href={item.href}
@@ -227,7 +167,10 @@ export function StaggeredMenu({ locale, homeHref, items }: StaggeredMenuProps) {
                     aria-current={isCurrent ? "page" : undefined}
                     tabIndex={isOpen ? 0 : -1}
                     onClick={() => {
-                      if (!isCurrent) markSkipOpeningTransitionForNextNavigation();
+                      if (!isCurrent) {
+                        markSkipOpeningTransitionForNextNavigation();
+                        return;
+                      }
                       setMenuOpen(false);
                     }}
                   >
