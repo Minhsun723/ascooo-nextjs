@@ -1,0 +1,138 @@
+{
+  "nav": {
+    "top": "Home",
+    "works": "Works",
+    "about": "About",
+    "company": "Company",
+    "status": "Status",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "Ignite Imagination Through Motion"
+  },
+  "lineup": {
+    "title": "Line Up",
+    "cap": "Featured Works",
+    "more": "More"
+  },
+  "about": {
+    "catch": "Animation × Creation\n= Ascooo",
+    "text": "<strong>Ascooo</strong> is dedicated to bringing high-quality content to everyone. We believe every work carries the soul of its creators, and our mission is to connect these stories with the hearts of many.",
+    "note": "※ The brand name \"Ascooo\" is born from the fusion of \"Animation\" and \"Creation,\" symbolizing the infinite possibilities of anime and creativity."
+  },
+  "purpose": {
+    "title": "Purpose",
+    "text1": "Ascooo is a company focused on entertainment. Through innovative distribution strategies and creative marketing approaches, we build bridges connecting audiences, creators, and partners.",
+    "text2": "We leverage optimal distribution strategies to fully showcase the value and charm of each work, delivering extraordinary visual experiences to more audiences."
+  },
+  "company": {
+    "title": "Company",
+    "name_label": "Company Name",
+    "name_value": "Ascooo Inc.",
+    "capital_label": "Capital",
+    "capital_value": "—",
+    "representatives_label": "Representatives",
+    "representative1_title": "—",
+    "representative1_name": "—",
+    "location_label": "Location",
+    "location_value": "—",
+    "business_label": "Business",
+    "business_value": "—",
+    "phone_label": "Phone",
+    "phone_value": "+886-2-1234-5678",
+    "fax_label": "Fax",
+    "fax_value": "+886-2-1234-5679",
+    "map_label": "Map",
+    "map_value": "View on Google Maps",
+    "more": "More"
+  },
+  "news": {
+    "title": "News",
+    "cap": "Latest Updates",
+    "more": "More"
+  },
+  "footer": {
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "about": "About",
+    "copyright": "© 2026 Ascooo. All rights reserved."
+  },
+  "works_page": {
+    "title": "Works",
+    "cap": "Our Collection"
+  },
+  "about_page": {
+    "title": "About",
+    "cap": "About Us"
+  },
+  "company_page": {
+    "title": "Company",
+    "cap": "Company Profile"
+  },
+  "news_page": {
+    "title": "News",
+    "cap": "Latest Updates"
+  },
+  "contact_page": {
+    "title": "Contact",
+    "cap": "Get in Touch",
+    "name_label": "Name",
+    "email_label": "Email",
+    "subject_label": "Subject",
+    "message_label": "Message",
+    "submit": "Submit"
+  },
+  "privacy_page": {
+    "title": "Privacy Policy",
+    "cap": "Privacy Policy"
+  },
+  "terms_page": {
+    "title": "Terms of Service",
+    "cap": "Terms of Service",
+    "section1_title": "Scope of Application",
+    "section1_text": "These Terms of Service (hereinafter \"Terms\") apply to the website and related services provided by Ascooo Inc. (hereinafter \"the Company\"). By accessing or using this website or service, you agree to be bound by all provisions of these Terms.",
+    "section2_title": "Service Description",
+    "section2_text": "The Company provides information, distribution, and promotional services related to animation and visual content. The Company reserves the right to modify, suspend, or terminate all or part of the services at any time without prior notice.",
+    "section3_title": "User Obligations",
+    "section3_text": "Users may not use this website or service for any unlawful or unauthorized purpose, including but not limited to: distributing malware, infringing upon the intellectual property rights of others, sending unsolicited commercial messages, or engaging in any conduct that disrupts the normal operation of the service.",
+    "section4_title": "Intellectual Property",
+    "section4_text": "All content on this website, including text, images, video, trademarks, and logos, is the property of the Company or its licensors and is protected by copyright and other intellectual property laws. No content may be reproduced, distributed, modified, or publicly displayed without the prior written consent of the Company.",
+    "section5_title": "Disclaimer",
+    "section5_text": "The Company will make every effort to ensure the accuracy and timeliness of website content, but makes no warranties regarding the completeness, accuracy, or suitability of any content. The Company shall not be liable for any loss arising from the use of this website or reliance on its content.",
+    "section6_title": "Amendments",
+    "section6_text": "The Company may amend these Terms at any time. Amended Terms will be posted on this page and will take effect from the date of publication. Please review this page periodically for the latest Terms. Continued use of the service constitutes acceptance of the amended Terms.",
+    "section7_title": "Contact",
+    "section7_text": "If you have any questions regarding these Terms, please reach us via our <a data-nav-href=\"/contact\" style=\"text-decoration: underline;\">contact page</a>."
+  },
+  "not_found": {
+    "title": "404",
+    "cap": "Page Not Found",
+    "btn": "Back to Home"
+  },
+  "status_page": {
+    "title": "Status",
+    "cap": "System Status",
+    "overall_operational": "All Systems Operational",
+    "overall_partial_outage": "Partial System Outage",
+    "overall_degraded": "Some Systems Degraded",
+    "overall_outage": "System Outage",
+    "last_updated": "Last updated",
+    "uptime": "uptime",
+    "no_incidents": "No recent incidents",
+    "incidents_title": "Recent Incidents",
+    "loading": "Loading...",
+    "error": "Failed to load status data",
+    "powered_by": "Powered by Better Stack",
+    "days_ago": "days ago",
+    "today": "Today",
+    "status_operational": "Operational",
+    "status_degraded": "Degraded",
+    "status_down": "Down",
+    "status_recovered": "Recovered",
+    "tooltip_no_downtime": "No downtime recorded on this day.",
+    "tooltip_down_duration": "Down for {time}, now operational",
+    "tooltip_down_ongoing": "Down for {time}, currently down"
+  }
+}

@@ -1,0 +1,35 @@
+@import "../styles/base.css";
+@import "../styles/layout.css";
+@import "../styles/components.css";
+@import "../styles/home.css";
+@import "../styles/about.css";
+@import "../styles/company.css";
+@import "../styles/contact.css";
+@import "../styles/news.css";
+@import "../styles/works.css";
+@import "../styles/privacy.css";
+@import "../styles/status.css";
+@import "../styles/not-found.css";
+
+body { font-family: var(--font-body); }
+
+.skip-link {
+  position: fixed;
+  inset: 8px auto auto 8px;
+  z-index: 10000;
+  padding: 10px 16px;
+  background: #fff;
+  color: #111;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .p-op { display: none; }
+  .js-reveal,
+  .js-reveal-left,
+  .js-reveal-right,
+  .js-reveal-scale { opacity: 1; transform: none; }
+}
