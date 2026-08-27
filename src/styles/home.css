@@ -416,24 +416,24 @@
 }
 
 @media (max-width: 600px) {
+  .p-hero .swiper-slide {
+    /* Fit a 9:16 image into the viewport while reserving space for the header and controls. */
+    width: min(95%, calc(56.25vh - 123.75px));
+    width: min(95%, calc(56.25svh - 123.75px));
+  }
+
   .p-hero__slide-img {
     aspect-ratio: 9 / 16;
     max-height: none;
   }
 
+  .p-hero__slide-nav {
+    margin-top: clamp(24px, 6svh, 48px);
+  }
+
   .p-related__grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
-  }
-}
-
-@media (max-width: 600px) and (max-height: 700px) {
-  .p-hero .swiper-slide {
-    width: min(74%, 250px);
-  }
-
-  .p-hero__slide-nav {
-    margin-top: 32px;
   }
 }
 
