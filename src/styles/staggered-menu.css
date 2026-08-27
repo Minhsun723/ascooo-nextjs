@@ -90,7 +90,8 @@ body[data-menu-open] {
   }
 
   .sm-menu[data-open] .sm-menu__toggle {
-    color: var(--color-bg);
+    color: #fff;
+    opacity: 1;
   }
 
   .sm-menu__toggle:hover {
