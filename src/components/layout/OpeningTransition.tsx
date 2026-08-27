@@ -16,8 +16,11 @@ export function OpeningTransition() {
     const root = rootRef.current;
     if (!root) return;
 
+    const heroSlide = document.querySelector<HTMLElement>(".p-hero__slide");
+
     if (consumeSkipOpeningTransitionForNavigation()) {
       gsap.set(root, { display: "none" });
+      if (heroSlide) gsap.set(heroSlide, { clearProps: "opacity,transform,filter" });
       return;
     }
 
@@ -25,8 +28,14 @@ export function OpeningTransition() {
     const firstVisit = !sessionStorage.getItem("ascooo-visited");
     if (reduceMotion) {
       gsap.set(root, { display: "none" });
+      if (heroSlide) gsap.set(heroSlide, { clearProps: "opacity,transform,filter" });
       return;
     }
+
+    if (heroSlide) {
+      gsap.set(heroSlide, { autoAlpha: 0, y: 40, filter: "blur(8px)" });
+    }
+
     gsap.set(root, { display: "block" });
     const timeline = gsap.timeline({ onComplete: () => sessionStorage.setItem("ascooo-visited", "1") });
     if (firstVisit) {
@@ -36,6 +45,10 @@ export function OpeningTransition() {
     } else {
       gsap.set(".p-op__logo", { display: "none" });
       timeline.to(".p-op__overlay", { yPercent: -100, duration: 0.35, ease: "power2.inOut", stagger: 0.03 });
+    }
+
+    if (heroSlide) {
+      timeline.to(heroSlide, { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power3.out" });
     }
   }, { scope: rootRef, dependencies: [pathname], revertOnUpdate: true });
 

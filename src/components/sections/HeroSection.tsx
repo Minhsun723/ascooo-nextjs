@@ -11,7 +11,14 @@ export function HeroSection() {
       <div className="p-hero__content"><div className="p-hero__slide">
         <Swiper className="js-hero-swiper" modules={[Autoplay, Navigation, Pagination]} slidesPerView="auto" centeredSlides spaceBetween={24} loop speed={800} autoplay={{ delay: 4000, disableOnInteraction: false }} pagination={{ el: ".p-hero__pagination", clickable: true }} navigation={{ prevEl: ".p-hero__slide-btn.--prev", nextEl: ".p-hero__slide-btn.--next" }}>
           {slides.map((number) => (
-            <SwiperSlide key={number}><div className="p-hero__slide-img"><img src={`https://placehold.co/800x450/${number === 5 ? "1a1a1a" : `${number}a${number}a${number}a`}/f0f0f0?text=Work+0${number}`} alt={`Work ${String(number).padStart(2, "0")}`} /></div></SwiperSlide>
+            <SwiperSlide key={number}>
+              <div className="p-hero__slide-img">
+                <picture>
+                  <source media="(max-width: 600px)" srcSet={`https://placehold.co/450x800/${number === 5 ? "1a1a1a" : `${number}a${number}a${number}a`}/f0f0f0?text=Work+0${number}`} />
+                  <img src={`https://placehold.co/800x450/${number === 5 ? "1a1a1a" : `${number}a${number}a${number}a`}/f0f0f0?text=Work+0${number}`} alt={`Work ${String(number).padStart(2, "0")}`} />
+                </picture>
+              </div>
+            </SwiperSlide>
           ))}
         </Swiper>
         <div className="p-hero__slide-nav">

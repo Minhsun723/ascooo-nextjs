@@ -113,7 +113,7 @@
   },
   "status_page": {
     "title": "Status",
-    "cap": "系統狀態",
+    "cap": "系統狀態（系統維護中）",
     "overall_operational": "所有系統正常運作",
     "overall_partial_outage": "部分系統發生中斷",
     "overall_degraded": "部分系統效能降低",

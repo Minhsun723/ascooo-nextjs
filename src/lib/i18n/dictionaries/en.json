@@ -113,7 +113,7 @@
   },
   "status_page": {
     "title": "Status",
-    "cap": "System Status",
+    "cap": "System Status (Under Maintenance)",
     "overall_operational": "All Systems Operational",
     "overall_partial_outage": "Partial System Outage",
     "overall_degraded": "Some Systems Degraded",
