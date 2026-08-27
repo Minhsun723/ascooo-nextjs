@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { markSkipOpeningTransitionForNextNavigation } from "@/lib/navigation-transition";
 import type { Locale } from "@/types/content";
+import { SocialLinks } from "./SocialLinks";
 
 export interface StaggeredMenuItem {
   label: string;
@@ -180,6 +181,11 @@ export function StaggeredMenu({ locale, homeHref, items }: StaggeredMenuProps) {
               );
             })}
           </ol>
+          <SocialLinks
+            className="sm-menu__social"
+            ariaLabel={locale === "zh-TW" ? "社群媒體連結" : "Social links"}
+            tabIndex={isOpen ? 0 : -1}
+          />
         </div>
       </nav>
     </div>
